@@ -14,15 +14,16 @@
         <ModeZone></ModeZone>
       </div>
     </div>
-    <div class="instruction">
-      <Instruction></Instruction>
-    </div>
+<!--    <div class="instruction">-->
+<!--      <Instruction></Instruction>-->
+<!--    </div>-->
     <div id="example-2">
-      <button @click="save">保存</button>
+      <button class="btn btn-3 btn-3e icon-arrow-right" @click="save">保存</button>
+      <div>
+        <input class="btn btn-5 btn-5a icon-cog" type="file" id="files" ref="refFile" v-on:change="importCsv">
+      </div>
     </div>
-    <div>
-      <input type="file" id="files" ref="refFile" v-on:change="importCsv">
-    </div>
+
   </div>
 </template>
 
@@ -103,7 +104,6 @@ export default class Home extends Vue {
         [heads[2]]: items[i].position.y,
         [heads[3]]: items[i].zoom,
         [heads[4]]: items[i].rotation,
-
       })
     }
     console.log(Data)

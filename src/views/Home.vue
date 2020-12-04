@@ -20,7 +20,9 @@
     <div id="example-2">
       <button @click="save">保存</button>
     </div>
-    <div><button @click="load">加载</button></div>
+    <div>
+      <button @click="load">加载</button>
+    </div>
   </div>
 </template>
 
@@ -31,7 +33,11 @@ import ToolZone from "@/components/modules/ToolZone.vue";
 import ModeZone from "@/components/modules/ModeZone.vue";
 import Instruction from "@/components/modules/instruction/Instruction.vue";
 import Controller from "@/core/controller/Controller";
-import { Component, Prop, Vue } from "vue-property-decorator";
+import {Component, Prop, Vue} from "vue-property-decorator";
+import {MapItem} from "@/core/mapitems/map-item";
+import {itemMap} from "@/core/constants";
+import {MapItemJSON} from "@/core/controller/Map";
+import {isRotatable, isZoomable} from "@/core/common";
 
 @Component({
   components: {
@@ -42,15 +48,60 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     Instruction,
   },
 })
+
+
+
 export default class Home extends Vue {
   @Prop() private msg!: string;
-  private save() : void{
-    let items = Controller.getInstance().items;
-    console.log(items);
+
+  private save(): void {
+    let content = Controller.getInstance().items;
+    let length = content.length;
+    const items: MapItem[] = [];
+    if (content instanceof Array) {
+      for (const jsonItem of content) {
+        const item = MapItemJSON.createFromJSON(jsonItem);
+        if (item !== null) {
+          const mapItem = new itemMap[item.name](
+              item.position.x,
+              item.position.y
+          );
+          // 检测是否旋转
+          if (isRotatable(mapItem)) {
+            if (item.rotation !== undefined) {
+              mapItem.rotation = item.rotation;
+            } else {
+              return null;
+            }
+          }
+          // 检测是否放缩
+          if (isZoomable(mapItem)) {
+            if (item.zoom !== undefined) {
+              mapItem.zoomTo(mapItem.position, item.zoom);
+            } else {
+              return null;
+            }
+          }
+          items.push(mapItem);
+        } else {
+          return null;
+        }
+      }
+      for (let i = 0 ; i<length;i++){
+        console.log(items[i].name);
+        console.log(items[i].position.x);
+        console.log(items[i].position.y);
+        console.log(items[i].zoom);
+        console.log(items[i].rotation);
+
+      }
+    }
   }
-  private load() : void{
-    alert ('Hello ' + 2 + '!')
+
+  private load(): void {
+    alert('Hello ' + 2 + '!')
   }
+
 }
 </script>
 
@@ -77,6 +128,7 @@ export default class Home extends Vue {
   flex-grow: 1;
   background-color: #fff;
 }
+
 .right-top {
   height: 45.5%;
 }
@@ -88,6 +140,7 @@ export default class Home extends Vue {
 .right-bottom {
   height: 33%;
 }
+
 .instruction {
   padding: 0 0 0 20px;
   width: 360px;

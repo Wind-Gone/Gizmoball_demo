@@ -1,7 +1,7 @@
 <template>
   <div
     class="item-zone"
-    :style="'pointer-events: ' + (currentMode == 'LAYOUT' ? 'auto' : 'none')"
+    :style="'pointer-events: ' + (currentMode === 'LAYOUT' ? 'auto' : 'none')"
   >
     <table class="item-table" width="100%">
       <caption class="caption">

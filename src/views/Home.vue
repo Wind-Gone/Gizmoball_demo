@@ -21,7 +21,7 @@
       <button @click="save">保存</button>
     </div>
     <div>
-      <button @click="load">加载</button>
+      <input type="file" id="files" ref="refFile" v-on:change="importCsv">
     </div>
   </div>
 </template>
@@ -109,24 +109,36 @@ export default class Home extends Vue {
     console.log(Data)
     const csv = Papa.unparse(Data);
     console.log(csv)
-    //定义文件内容，类型必须为Blob 否则createObjectURL会报错
     let content2 = new Blob([csv]);
-    //生成url对象
     let urlObject = window.URL || window.webkitURL || window;
     let url = urlObject.createObjectURL(content2);
-    //生成<a></a>DOM元素
     let el = document.createElement("a");
-    //链接赋值
     el.href = url;
-    el.download = "文件导出.cvs";
-    //必须点击否则不会下载
+    el.download = "Gizmoball文件导出.cvs";
     el.click();
-    //移除链接释放资源
     urlObject.revokeObjectURL(url);
   }
 
-  private load(): void {
-    alert('Hello ' + 2 + '!')
+  private importCsv(){
+    let selectedFile = null
+    selectedFile = this.$refs.refFile.files[0];
+    if (selectedFile === undefined){
+      return
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile)
+    reader.onload = evt => {
+      Papa.parse(selectedFile, {
+        encoding:"ANSI",
+        complete: res => {
+          let data = res.data;
+          if (data[data.length - 1] == "") {
+            data.pop();
+          }
+          console.log(data);  // data就是文件里面的数据
+        }
+      });
+    };
   }
 
 }

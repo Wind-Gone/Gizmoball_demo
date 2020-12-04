@@ -42,12 +42,12 @@ export class Controller {
     return this.controller ?? (this.controller = new Controller());
   }
 
-  private mapItems: Map<number, MapItem>;
+  private readonly mapItems: Map<number, MapItem>;
   private savedJSONString: string;
-  private balls: Map<number, Ball>;
-  private border: BorderMapItem;
-  private alphaBaffles: Map<number, BaffleAlphaMapItem>;
-  private betaBaffles: Map<number, BaffleBetaMapItem>;
+  private readonly balls: Map<number, Ball>;
+  private readonly border: BorderMapItem;
+  private readonly alphaBaffles: Map<number, BaffleAlphaMapItem>;
+  private readonly betaBaffles: Map<number, BaffleBetaMapItem>;
   private constructor() {
     this.mapItems = new Map<number, MapItem>();
     this.balls = new Map<number, Ball>();
@@ -55,7 +55,7 @@ export class Controller {
     this.mapItems.set(this.border.id, this.border);
     this.alphaBaffles = new Map<number, BaffleAlphaMapItem>();
     this.betaBaffles = new Map<number, BaffleBetaMapItem>();
-    this.savedJSONString = this.mapItemsToJSON(this.mapItems);
+    this.savedJSONString = Controller.mapItemsToJSON(this.mapItems);
   }
 
   public get items(): MapItem[] {
@@ -82,7 +82,7 @@ export class Controller {
   ): MapItem | null {
     const mapItem = new itemMap[name](x, y);
     if (this.handleAddItem(mapItem)) {
-      this.savedJSONString = this.mapItemsToJSON(this.mapItems);
+      this.savedJSONString = Controller.mapItemsToJSON(this.mapItems);
       return mapItem;
     }
     return null;
@@ -103,7 +103,7 @@ export class Controller {
   }
 
   private loadMapItemsFromJSON(content: string) {
-    const items = this.readFromJSON(content);
+    const items = Controller.readFromJSON(content);
     if (items != null) {
       this.loadMapItemsFromItems(items);
     } else {
@@ -111,7 +111,7 @@ export class Controller {
     }
   }
 
-  private readFromJSON(content: string): MapItem[] | null {
+  private static readFromJSON(content: string): MapItem[] | null {
     const jsonItems = JSON.parse(content);
     const items: MapItem[] = [];
     if (jsonItems instanceof Array) {
@@ -201,7 +201,7 @@ export class Controller {
         return false;
       }
       // this.currentFileModified = true;
-      this.savedJSONString = this.mapItemsToJSON(this.mapItems);
+      this.savedJSONString = Controller.mapItemsToJSON(this.mapItems);
       return true;
     }
     return false;
@@ -217,7 +217,7 @@ export class Controller {
     this.betaBaffles.delete(id);
     const result = this.mapItems.delete(id);
     // if (result) this.currentFileModified = true;
-    this.savedJSONString = this.mapItemsToJSON(this.mapItems);
+    this.savedJSONString = Controller.mapItemsToJSON(this.mapItems);
     return result;
   }
 
@@ -250,7 +250,7 @@ export class Controller {
         return false;
       }
       // this.currentFileModified = true;
-      this.savedJSONString = this.mapItemsToJSON(this.mapItems);
+      this.savedJSONString = Controller.mapItemsToJSON(this.mapItems);
       return true;
     }
     return false;
@@ -273,7 +273,7 @@ export class Controller {
         return false;
       }
       // this.currentFileModified = true;
-      this.savedJSONString = this.mapItemsToJSON(this.mapItems);
+      this.savedJSONString = Controller.mapItemsToJSON(this.mapItems);
       return true;
     }
     return false;
@@ -292,7 +292,7 @@ export class Controller {
         return false;
       }
       // this.currentFileModified = true;
-      this.savedJSONString = this.mapItemsToJSON(this.mapItems);
+      this.savedJSONString = Controller.mapItemsToJSON(this.mapItems);
       return true;
     }
     return false;
@@ -311,7 +311,7 @@ export class Controller {
       ball.massPoint.setAcceleration("pipe", new Vector2D(0, 0));
       ball.massPoint.setAcceleration("centripetal", new Vector2D(0, 0));
     }
-    const timer: number = setInterval(() => {
+    const timer: NodeJS.Timeout = setInterval(() => {
       switch (this.state) {
         case "PLAYING":
           // for (const item of this.items) {
@@ -367,7 +367,7 @@ export class Controller {
   /**
    * 将mapItems转换为JSON格式string
    */
-  private mapItemsToJSON(mapItems: Map<number, MapItem>): string {
+  private static mapItemsToJSON(mapItems: Map<number, MapItem>): string {
     const mapItemJSONs: MapItemJSON[] = [];
     for (const [, item] of mapItems) {
       const mapItem: MapItem = item;

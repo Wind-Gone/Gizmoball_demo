@@ -165,9 +165,6 @@ export default class Home extends Vue {
           }
           console.log(importitems.length)
           Controller.getInstance().loadMapItemsFromItems(importitems);
-          // for (let i = 1; i < importitems.length; i++) {
-          //   Controller.getInstance().createMapItem(importitems[i].name,importitems[i].position.x,importitems[i].position.y)
-          // }
         }
       });
     };

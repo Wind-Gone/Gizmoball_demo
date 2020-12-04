@@ -84,4 +84,6 @@ export abstract class MapItem implements ICollisible, ITransmittable {
         this.collider.rotation = rotation;
     }
 
+
+
 }

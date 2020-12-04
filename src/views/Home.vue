@@ -14,10 +14,10 @@
         <ModeZone></ModeZone>
       </div>
     </div>
-<!--    <div class="instruction">-->
-<!--      <Instruction></Instruction>-->
-<!--    </div>-->
-    <div id="example-2">
+    <!--    <div class="instruction">-->
+    <!--      <Instruction></Instruction>-->
+    <!--    </div>-->
+    <div>
       <button class="btn btn-3 btn-3e icon-arrow-right" @click="save">保存</button>
       <div>
         <input class="btn btn-5 btn-5a icon-cog" type="file" id="files" ref="refFile" v-on:change="importCsv">
@@ -95,16 +95,16 @@ export default class Home extends Vue {
       console.log(items[i].zoom);
       console.log(items[i].rotation);
     }
-    let heads = ['name', 'position_x', "position_y" , "zoom" , "rotation"]
+    let heads = ['name', 'position_x', "position_y", "zoom", "rotation"]
     let Data = [];
-    for(let i=0; i<length; i++) {
+    for (let i = 0; i < length; i++) {
       Data.push({
         [heads[0]]: items[i].name,
         [heads[1]]: items[i].position.x,
         [heads[2]]: items[i].position.y,
         [heads[3]]: items[i].zoom,
         [heads[4]]: items[i].rotation,
-      })
+      });
     }
     console.log(Data)
     const csv = Papa.unparse(Data);
@@ -119,26 +119,60 @@ export default class Home extends Vue {
     urlObject.revokeObjectURL(url);
   }
 
-  private importCsv(){
+  private importCsv() {
     let selectedFile = null
     selectedFile = this.$refs.refFile.files[0];
-    if (selectedFile === undefined){
+    if (selectedFile === undefined) {
       return
     }
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile)
+    const importitems: MapItem[] = [];  //MapItem类型
     reader.onload = evt => {
       Papa.parse(selectedFile, {
-        encoding:"ANSI",
+        encoding: "ANSI",
         complete: res => {
           let data = res.data;
           if (data[data.length - 1] == "") {
             data.pop();
           }
           console.log(data);  // data就是文件里面的数据
+          Controller.getInstance().stop();  // 先清空盘面
+          for (let i = 1; i < data.length; i++) {
+            if (data[i][0] != null) {
+              const mapItem = new itemMap[data[i][0]](
+                  data[i][1],
+                  data[i][2]
+              );
+              if (isZoomable(mapItem)) {
+                if (data[i][3] !== undefined) {
+                  mapItem.zoomTo(mapItem.position, data[i][3]);
+                } else {
+                  return;
+                }
+              }
+              if (isRotatable(mapItem)) {
+                if (data[i][4]!== undefined) {
+                  mapItem.rotation = data[i][4];
+                } else {
+                  return;
+                }
+              }
+              importitems.push(mapItem);
+            } else {
+              return;
+            }
+          }
+          console.log(importitems.length)
+          Controller.getInstance().loadMapItemsFromItems(importitems);
+          // for (let i = 1; i < importitems.length; i++) {
+          //   Controller.getInstance().createMapItem(importitems[i].name,importitems[i].position.x,importitems[i].position.y)
+          // }
         }
       });
     };
+
+
   }
 
 }

@@ -22,7 +22,7 @@
               @dragstart="onDragstart(item, $event)"
               @dragend="onDragend(item, $event)"
               :src="item.img"
-              :draggable="item.typeValue != 'select'"
+              :draggable="item.typeValue !== 'select'"
               :height="length"
               :width="length"
             />

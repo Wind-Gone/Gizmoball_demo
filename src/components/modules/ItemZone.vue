@@ -4,7 +4,7 @@
     :style="'pointer-events: ' + (currentMode === 'LAYOUT' ? 'auto' : 'none')"
   >
     <table class="item-table" width="100%">
-      <caption class="caption">
+      <caption class="caption" style="color: darkslateblue">
         组件栏
       </caption>
       <tr class="two-item" v-for="(items, rowIndex) in itemss" :key="rowIndex">

@@ -15,22 +15,8 @@
       </div>
     </div>
 
-<!--    <div class="dropdown">-->
-<!--      <button class="dropbtn">下拉菜单</button>-->
-<!--      <div class="dropdown-content">-->
-<!--        <button @click="save">保存</button>-->
-<!--        <input  type="file" id="files" ref="refFile" v-on:change="importCsv">-->
-<!--      </div>-->
-<!--    </div>-->
-
-
-
-    <!--    <div class="instruction">-->
-    <!--      <Instruction></Instruction>-->
-    <!--    </div>-->
     <div>
       <button class="btn btn-2 btn-2h" @click="save">保存</button>
-
       <div class="load">
         <input type="file" id="files"  ref="refFile" v-on:change="importCsv">
       </div>
@@ -53,7 +39,6 @@ import {itemMap} from "@/core/constants";
 import {MapItemJSON} from "@/core/controller/Map";
 import {isRotatable, isZoomable} from "@/core/common";
 import Papa from 'papaparse'
-
 @Component({
   components: {
     GamePanel,
@@ -63,12 +48,8 @@ import Papa from 'papaparse'
     Instruction,
   },
 })
-
-
-
 export default class Home extends Vue {
   @Prop() private msg!: string;
-
   private save(): void {
     let content = Controller.getInstance().items;
     let length = content.length;
@@ -131,7 +112,6 @@ export default class Home extends Vue {
     el.click();
     urlObject.revokeObjectURL(url);
   }
-
   private importCsv() {
     let selectedFile = null
     selectedFile = this.$refs.refFile.files[0];
@@ -181,21 +161,14 @@ export default class Home extends Vue {
         }
       });
     };
-
-
   }
-
 }
 </script>
 
 <style scoped>
-
-
-
 .main.test-border{
   background-color: #f9e0ae;
 }
-
 .test-border {
   border-style: inset;
   border-color: #f9e0ae;
@@ -203,12 +176,10 @@ export default class Home extends Vue {
   color: #f9e0ae;
   border-width: 2px;
 }
-
 .home {
   display: flex;
   height: 100%;
 }
-
 .load{
   background-color: #bce6eb; /* Green */
   border: none;
@@ -221,11 +192,9 @@ export default class Home extends Vue {
   margin : 0px 20px 1px 20px;
   border-radius: 20px;
 }
-
 .main {
   width: 790px;
 }
-
 .right-side {
   max-width: 300px;
   display: flex;
@@ -233,43 +202,32 @@ export default class Home extends Vue {
   flex-grow: 1;
   background-color: #f9e0ae;
 }
-
 .right-top {
   height: 45.5%;
 }
-
-
 .right-middle.test-border{
   background-color: #fbf6f0;
   padding: 2.5%;
   border-radius: 20px;
 }
-
 .right-middle {
   height: 21.5%;
 }
-
 .right-bottom.test-border{
   background-color: #fbf6f0;
   padding: 2.5%;
   border-radius: 20px;
 }
-
 .right-bottom {
   height: 33%;
 }
-
 .instruction {
   padding: 0 0 0 20px;
   width: 360px;
   text-align: left;
   flex: none;
 }
-
-
-
 /*xiala*/
-
 .dropbtn {
   background-color: #4CAF50;
   color: white;
@@ -278,13 +236,11 @@ export default class Home extends Vue {
   border: none;
   cursor: pointer;
 }
-
 /* 容器 <div> - 需要定位下拉内容 */
 .dropdown {
   position: relative;
   display: inline-block;
 }
-
 /* 下拉内容 (默认隐藏) */
 .dropdown-content {
   display: none;
@@ -293,7 +249,6 @@ export default class Home extends Vue {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
-
 /* 下拉菜单的链接 */
 .dropdown-content a {
   color: black;
@@ -301,21 +256,14 @@ export default class Home extends Vue {
   text-decoration: none;
   display: block;
 }
-
 /* 鼠标移上去后修改下拉菜单链接颜色 */
 .dropdown-content a:hover {background-color: #f1f1f1}
-
 /* 在鼠标移上去后显示下拉菜单 */
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
 /* 当下拉内容显示后修改下拉按钮的背景颜色 */
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
-
-
-
-
 </style>

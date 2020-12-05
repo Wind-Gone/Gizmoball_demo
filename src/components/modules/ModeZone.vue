@@ -1,7 +1,7 @@
 <template>
   <div class="mode-zone">
     <table class="mode-table" width="100%">
-      <caption class="caption">
+      <caption class="caption" style="color: mediumvioletred">
         模式栏
       </caption>
       <tr>

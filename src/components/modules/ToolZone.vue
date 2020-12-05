@@ -4,7 +4,7 @@
     :style="'pointer-events: ' + (available ? 'auto' : 'none')"
   >
     <table class="tool-table" width="100%">
-      <caption class="caption">
+      <caption class="caption" style="color: darkseagreen">
         工具栏
       </caption>
       <tr class="two-tool">

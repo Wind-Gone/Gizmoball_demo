@@ -35,6 +35,11 @@
         <input type="file" id="files"  ref="refFile" v-on:change="importCsv">
       </div>
 
+      <div class="wulinannan">
+        <h1 class="nantitle">wuli南南</h1>
+        <img src="img/wulinannan.jpg" style="border-radius: 20px" >
+      </div>
+
     </div>
 
   </div>
@@ -208,6 +213,25 @@ export default class Home extends Vue {
   display: flex;
   height: 100%;
 }
+
+.wulinannan{
+  border-radius: 20px;
+  margin : 20px 60px 20px 60px;
+}
+
+.nantitle{
+
+  text-shadow: 3px -3px black, 2px -2px white;
+
+  font-weight: bold;
+
+  webkit-text-fill-color: transparent;
+
+  webkit-background-clip: text;
+
+
+}
+
 
 .load{
   background-color: #bce6eb; /* Green */

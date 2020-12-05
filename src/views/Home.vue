@@ -22,6 +22,8 @@
         </div>
       </div>
       <div class="right-bottom test-border">
+        <h1 class="nanTitle">Wuli南南</h1>、
+        <img src="img/wulinannan.jpg" style="border-radius: 20px;height: 150px;width: 180px">
       </div>
     </div>
 
@@ -307,4 +309,17 @@ export default class Home extends Vue {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+.nanTitle{
+  text-shadow: 3px -3px black, 2px -2px white;
+
+  font-weight: bold;
+
+  webkit-text-fill-color: transparent;
+
+  webkit-background-clip: text
+
+
+}
+
 </style>

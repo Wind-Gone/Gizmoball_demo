@@ -14,16 +14,27 @@
         <ModeZone></ModeZone>
       </div>
     </div>
+
+<!--    <div class="dropdown">-->
+<!--      <button class="dropbtn">下拉菜单</button>-->
+<!--      <div class="dropdown-content">-->
+<!--        <button @click="save">保存</button>-->
+<!--        <input  type="file" id="files" ref="refFile" v-on:change="importCsv">-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+
     <!--    <div class="instruction">-->
     <!--      <Instruction></Instruction>-->
     <!--    </div>-->
     <div>
-      <button class="btn btn-3 btn-3e icon-arrow-right" @click="save">保存</button>
-      <div>
-        <button class="btn btn-2 btn-2h">
-        <input type="file" id="files" ref="refFile" v-on:change="importCsv">
-        </button>
+      <button class="btn btn-2 btn-2h" @click="save">保存</button>
+
+      <div class="load">
+        <input type="file" id="files"  ref="refFile" v-on:change="importCsv">
       </div>
+
     </div>
 
   </div>
@@ -178,9 +189,18 @@ export default class Home extends Vue {
 </script>
 
 <style scoped>
+
+
+
+.main.test-border{
+  background-color: #f9e0ae;
+}
+
 .test-border {
   border-style: inset;
-  border-color: #000;
+  border-color: #f9e0ae;
+  border-radius: 20px;
+  color: #f9e0ae;
   border-width: 2px;
 }
 
@@ -189,8 +209,21 @@ export default class Home extends Vue {
   height: 100%;
 }
 
+.load{
+  background-color: #bce6eb; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin : 0px 20px 1px 20px;
+  border-radius: 20px;
+}
+
 .main {
-  width: 734px;
+  width: 790px;
 }
 
 .right-side {
@@ -198,15 +231,28 @@ export default class Home extends Vue {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: #fff;
+  background-color: #f9e0ae;
 }
 
 .right-top {
   height: 45.5%;
 }
 
+
+.right-middle.test-border{
+  background-color: #fbf6f0;
+  padding: 2.5%;
+  border-radius: 20px;
+}
+
 .right-middle {
   height: 21.5%;
+}
+
+.right-bottom.test-border{
+  background-color: #fbf6f0;
+  padding: 2.5%;
+  border-radius: 20px;
 }
 
 .right-bottom {
@@ -219,4 +265,57 @@ export default class Home extends Vue {
   text-align: left;
   flex: none;
 }
+
+
+
+/*xiala*/
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* 容器 <div> - 需要定位下拉内容 */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* 下拉内容 (默认隐藏) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* 下拉菜单的链接 */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* 在鼠标移上去后显示下拉菜单 */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* 当下拉内容显示后修改下拉按钮的背景颜色 */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+
+
+
 </style>

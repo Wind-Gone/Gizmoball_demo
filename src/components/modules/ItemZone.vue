@@ -67,11 +67,22 @@ export default class ItemZone extends Vue {
 </script>
 
 <style scoped>
+
+
 .item-zone {
+  background-color: #fbf6f0;
+  padding: 2.5%;
+  border-radius: 20px;
   height: 100%;
 }
 
+
+
 .two-item {
+
+
+
+
   display: flex;
   justify-content: center;
 }

@@ -167,7 +167,7 @@ export default class GamePanel extends Vue {
 }
 .game-grid {
   height: 719px;
-  width: 719px;
+  width: 722px;
   border: inset;
   position: relative;
 }

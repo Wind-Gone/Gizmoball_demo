@@ -20,7 +20,9 @@
     <div>
       <button class="btn btn-3 btn-3e icon-arrow-right" @click="save">保存</button>
       <div>
-        <input class="btn btn-5 btn-5a icon-cog" type="file" id="files" ref="refFile" v-on:change="importCsv">
+        <button class="btn btn-2 btn-2h">
+        <input type="file" id="files" ref="refFile" v-on:change="importCsv">
+        </button>
       </div>
     </div>
 
